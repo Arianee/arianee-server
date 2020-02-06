@@ -7,7 +7,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 const privateKey=process.env.privateKey || '';
 const chain:NETWORK=process.env.chain as NETWORK || NETWORK.arianeeTestnet;
 process.env.authPubKey= 'myVerySecret'
@@ -20,8 +20,11 @@ const  makeARequest=async ()=>{
     };
 
    // const res=    await axios.get('http://localhost:3001/hello',config);
-//    await axios.post('http://localhost:3001/requestPoa',undefined,config);
-    const res=  await axios.post('http://localhost:3001/balanceOfPoa',undefined,config);
+    console.log("hezr")
+
+    await axios.post('http://localhost:3002/requestPoa',undefined,config);
+console.log("hezr")
+    const res=  await axios.post('http://localhost:3002/balanceOfPoa',undefined,config);
     console.log(res.data)
     //const pubkey=  await axios.post('http://localhost:3001/publicKey');
 };
@@ -37,6 +40,7 @@ const  makeARequest=async ()=>{
     app.get('/hello',(req,res)=> {
         return res.send('world');
     });
+
 
     const othersMethods=[
     {
