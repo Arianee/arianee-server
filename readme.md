@@ -8,3 +8,11 @@ use arianeejs with http
 post(nameOfMethod,[params])
 
 ex post('url.com/requestPoa)
+
+
+### process.env
+
+process.env.useBDH => url of bdh to use bdh vault
+apiKey => to pass in header
+chain => testnet, mainnet...etc
+privateKey => private key of wallet
