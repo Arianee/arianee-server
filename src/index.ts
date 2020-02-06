@@ -26,6 +26,10 @@ const  makeARequest=async ()=>{
     const arianee = await new Arianee().init(chain);
     const wallet = privateKey?arianee.fromPrivateKey(privateKey):arianee.fromRandomMnemonic();
 
+    if(process.env.useBDH){
+        wallet.useBDHVault(process.env.useBDH);
+    }
+
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
     app.use(AuthByApiKey)
@@ -57,6 +61,7 @@ const  makeARequest=async ()=>{
 
 
     app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+    console.log("public key",wallet.publicKey);
 
 })()
 
