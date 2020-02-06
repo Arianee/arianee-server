@@ -1,32 +1,25 @@
-import {Arianee, NETWORK} from "@arianee/arianeejs/dist/src";
+import {Arianee, NETWORK} from "@arianee/arianeejs";
 import {createRequestFromPathAndMethod, pathFinderFromWallet} from "./libs/arianee-path-finder";
 import axios from 'axios';
-var jwt = require('express-jwt');
-
+import {AuthByApiKey} from "./middlewares/auth-middleware";
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
-const port = process.env.PORT || 3002;
-const privateKey=process.env.privateKey || '';
+const port = process.env.PORT || 3001;
+const privateKey=process.env.privateKey || '0xff7cdcab8d92c87fa8e5fe6af70fcefc5b1df398bcc7ca3d16981f535a9d8d85';
 const chain:NETWORK=process.env.chain as NETWORK || NETWORK.arianeeTestnet;
-process.env.authPubKey= 'myVerySecret'
-
+process.env.apiKey="myApiKey"
 const  makeARequest=async ()=>{
-    const config={
-        headers:{
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.7Lgowhhw6f-71P0UzfqhV1p0txFG22IbXYnOFiBiaNw'
-        }
-    };
 
-   // const res=    await axios.get('http://localhost:3001/hello',config);
-    console.log("hezr")
 
-    await axios.post('http://localhost:3002/requestPoa',undefined,config);
-console.log("hezr")
-    const res=  await axios.post('http://localhost:3002/balanceOfPoa',undefined,config);
-    console.log(res.data)
-    //const pubkey=  await axios.post('http://localhost:3001/publicKey');
+    try{
+
+    await axios.post('http://localhost:3002/publicKey',[]);
+    }catch(e){
+        console.log(e)
+    }
+
 };
 
 (async function() {
@@ -35,7 +28,7 @@ console.log("hezr")
 
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
-    app.use(jwt({secret: process.env.authPubKey}))
+    app.use(AuthByApiKey)
 
     app.get('/hello',(req,res)=> {
         return res.send('world');
@@ -58,12 +51,12 @@ console.log("hezr")
     ... pathFinderFromWallet(wallet.methods)
 ]
         .forEach(method=>{
-            app.post(method.path,method.method)
+            console.log('accepted methods',method.path)
+            app.post(method.path,AuthByApiKey,method.method)
         });
 
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-    setTimeout(()=>makeARequest(),1000);
+    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 })()
 

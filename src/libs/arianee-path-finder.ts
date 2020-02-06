@@ -2,7 +2,7 @@
 export const createRequestFromPathAndMethod=(method)=>async (request,response)=>{
     const parameters=Object.keys(request.body).length>0?request.body:undefined;
     try {
-        const result=await  method(parameters);
+        const result=await  method(...parameters);
         response.json(result)
     }catch (e) {
         response.status(500).json(e)
