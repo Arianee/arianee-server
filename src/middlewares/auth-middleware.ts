@@ -1,7 +1,5 @@
-export const AuthByApiKey=(request,response,next)=>{
-   const apiKey= process.env.apiKey
+export const AuthByApiKey=(apiKey)=>(request,response,next)=>{
     const apiKeyInHeader=request.headers.authorization && request.headers.authorization.split('Basic ')[1]
-
     if(apiKey===apiKeyInHeader){
         return next()
     }else{

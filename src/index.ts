@@ -1,57 +1,72 @@
 import {Arianee, NETWORK} from "@arianee/arianeejs";
 import {createRequestFromPathAndMethod, pathFinderFromWallet} from "./libs/arianee-path-finder";
-import axios from 'axios';
 import {AuthByApiKey} from "./middlewares/auth-middleware";
+
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-process.env.apiKey='myApiKey'
-
-const port = process.env.PORT || 3000;
-const privateKey=process.env.privateKey || '0xff7cdcab8d92c87fa8e5fe6af70fcefc5b1df398bcc7ca3d16981f535a9d8d85';
-const chain:NETWORK=process.env.chain as NETWORK || NETWORK.arianeeTestnet;
 
 
-(async function() {
-    const arianee = await new Arianee().init(chain);
-    const wallet = privateKey?arianee.fromPrivateKey(privateKey):arianee.fromRandomMnemonic();
+export const arianeeServerFactory = async (configuration: {
+    privateKey: string
+    chain: NETWORK,
+    apiKey?: string,
+    useBDH?: string,
+    middlewareBefore?: Function
+    middlewareAfter?: Function
+}) => {
 
-    if(process.env.useBDH){
-        wallet.useBDHVault(process.env.useBDH);
+    process.env.apiKey = configuration.apiKey;
+
+
+    const arianee = await new Arianee().init(configuration.chain);
+    const wallet = arianee.fromPrivateKey(configuration.privateKey);
+
+    console.log("Wallet initialized");
+    if (configuration.useBDH) {
+        wallet.useBDHVault(configuration.useBDH);
     }
 
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
-    app.use(AuthByApiKey)
 
-    app.get('/hello',(req,res)=> {
+    if (configuration.middlewareBefore) {
+        app.use(configuration.middlewareBefore);
+    }
+
+    if (configuration.apiKey) {
+        app.use(AuthByApiKey(configuration.apiKey));
+    }
+
+
+    app.get('/hello', (req, res) => {
         return res.send('world');
     });
 
-
-    const othersMethods=[
-    {
-        path:'/requestAria',
-        method: createRequestFromPathAndMethod(wallet.requestAria)
-    },
-    {
-        path:'/requestPoa',
-        method: createRequestFromPathAndMethod(wallet.requestPoa)
-    },
-    {
-        path:'/publicKey',
-        method: createRequestFromPathAndMethod(()=>wallet.publicKey)
-    },
-    ... pathFinderFromWallet(wallet.methods)
-]
-        .forEach(method=>{
-            console.log('accepted methods',method.path)
-            app.post(method.path,AuthByApiKey,method.method)
+    [
+        {
+            path: '/requestAria',
+            method: createRequestFromPathAndMethod(wallet.requestAria)
+        },
+        {
+            path: '/requestPoa',
+            method: createRequestFromPathAndMethod(wallet.requestPoa)
+        },
+        {
+            path: '/publicKey',
+            method: createRequestFromPathAndMethod(() => wallet.publicKey)
+        },
+        ...pathFinderFromWallet(wallet.methods)
+    ]
+        .forEach(method => {
+            console.log('accepted methods', method.path);
+            app.post(method.path, method.method)
         });
 
+    if (configuration.middlewareAfter) {
+        app.use(configuration.middlewareAfter)
+    }
 
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-    console.log("public key",wallet.publicKey);
-
-})()
-
+    console.log('public key:', wallet.publicKey);
+    return app;
+};

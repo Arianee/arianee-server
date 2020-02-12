@@ -65,7 +65,7 @@ describe('ArianeeJSServer', () => {
 
     test('it should request buyCredits (certificate)', async (done) => {
         try {
-            await axios.post(`${localhostURL}/buyCredits`, ["certificate", 1], defaultConfig);
+            await axios.post(`${localhostURL}/buyCredits`, ["certificate", 3], defaultConfig);
 
             expect(true).toBeTruthy()
         } catch (e) {
@@ -76,7 +76,7 @@ describe('ArianeeJSServer', () => {
     });
     test('it should request buyCredits (event)', async (done) => {
         try {
-            await axios.post(`${localhostURL}/buyCredits`, ["event", 1], defaultConfig);
+            await axios.post(`${localhostURL}/buyCredits`, ["event", 3], defaultConfig);
 
             expect(true).toBeTruthy()
         } catch (e) {
@@ -86,7 +86,7 @@ describe('ArianeeJSServer', () => {
     });
     test('it should request buyCredits (message)', async (done) => {
         try {
-            await axios.post(`${localhostURL}/buyCredits`, ["message", 1], defaultConfig);
+            await axios.post(`${localhostURL}/buyCredits`, ["message", 3], defaultConfig);
 
             expect(true).toBeTruthy()
         } catch (e) {
@@ -144,7 +144,7 @@ describe('ArianeeJSServer', () => {
 
             certificateId = result.data.certificateId;
             passphrase = result.data.passphrase;
-            expect(result.data.deeplink).toBeDefined();
+            expect(result.data.deepLink).toBeDefined();
 
             expect(true).toBeTruthy()
         } catch (e) {

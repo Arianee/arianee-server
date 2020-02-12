@@ -2,11 +2,11 @@
   "name": "@arianee/arianee-server",
   "version": "0.3.2",
   "description": "",
-  "main": "dist/",
+  "main": "dist/index.js",
   "scripts": {
     "test": "npm run build && jest --runInBand",
     "test:watch": "jest --watchAll --runInBand",
-    "start": "nodemon dist/index.js",
+    "start": "nodemon dist/server.js",
     "start:express": "DEBUG=true nodemon dist/examples/express.example.js",
     "tsc:watch": "tsc --watch",
     "compile": "tsc && node dist/index.js",
