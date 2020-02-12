@@ -5,22 +5,12 @@ import {AuthByApiKey} from "./middlewares/auth-middleware";
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+process.env.apiKey='myApiKey'
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const privateKey=process.env.privateKey || '0xff7cdcab8d92c87fa8e5fe6af70fcefc5b1df398bcc7ca3d16981f535a9d8d85';
 const chain:NETWORK=process.env.chain as NETWORK || NETWORK.arianeeTestnet;
 
-const  makeARequest=async ()=>{
-
-
-    try{
-
-    await axios.post('http://localhost:3002/publicKey',[]);
-    }catch(e){
-        console.log(e)
-    }
-
-};
 
 (async function() {
     const arianee = await new Arianee().init(chain);

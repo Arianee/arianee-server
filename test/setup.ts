@@ -2,14 +2,15 @@ const {spawn}=require("child_process");
 
 let serverProcess;
 jest.setTimeout(20000);
+
+process.env.apiKey='myApiKey'
+process.env.PORT='3001';
+
 const env={
     ...process.env
 };
-env.PORT='3001';
-process.env.apiKey='myApiKey'
 
-process.env.PORT=env.PORT;
-
+console.log(env.apiKey)
 beforeAll(async (done) => {
    console.log("server launching")
 
