@@ -1,118 +1,118 @@
 import axios from "axios";
 
-const localhostURL=`http://localhost:${process.env.PORT}`;
+const localhostURL = `http://localhost:${process.env.PORT}`;
 
-const defaultConfig={
-    headers:{
-        'authorization':`Basic ${process.env.apiKey}`
+const defaultConfig = {
+    headers: {
+        'authorization': `Basic ${process.env.apiKey}`
     }
-}
+};
 
-describe('ArianeeJSServer',()=>{
-    let certificateId, passphrase,arianeeEventId, arianeeEventContent,certificateContent;
+describe('ArianeeJSServer', () => {
+   let certificateId, passphrase, arianeeEventId, arianeeEventContent, certificateContent;
 
-    test('it should request approveStore',async (done)=>{
+    test('it should request approveStore', async (done) => {
         let certificateID, passphrase;
-        try{
-        await axios.post(`${localhostURL}/approveStore`,[],defaultConfig);
+        try {
+            await axios.post(`${localhostURL}/approveStore`, [], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
 
-    })
+    });
 
-    test('it should request requestPOA',async (done)=>{
-        try{
-            await axios.post(`${localhostURL}/requestPoa`,[],defaultConfig);
+    test('it should request requestPOA', async (done) => {
+        try {
+            await axios.post(`${localhostURL}/requestPoa`, [], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
-    })
+    });
 
-    test('it should request requestAria',async (done)=>{
-        try{
-            await axios.post(`${localhostURL}/requestAria`,[],defaultConfig);
+    test('it should request requestAria', async (done) => {
+        try {
+            await axios.post(`${localhostURL}/requestAria`, [], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
-            expect(false).toBeTruthy()
-        }
-        done()
-
-    })
-
-    test('it should request balanceOfAria',async (done)=>{
-        try{
-            await axios.post(`${localhostURL}/balanceOfAria`,[],defaultConfig);
-            expect(true).toBeTruthy()
-        }catch(e){
-            expect(false).toBeTruthy()
-        }
-        done()
-    })
-    test('it should request balanceOfPoa',async (done)=>{
-        try{
-            await axios.post(`${localhostURL}/balanceOfPoa`,[],defaultConfig);
-            expect(true).toBeTruthy()
-        }catch(e){
-            expect(false).toBeTruthy()
-        }
-        done()
-    })
-
-    test('it should request buyCredits (certificate)',async (done)=>{
-        try{
-            await axios.post(`${localhostURL}/buyCredits`,["certificate",1],defaultConfig);
-
-            expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
 
-    })
-    test('it should request buyCredits (event)',async (done)=>{
-        try{
-            await axios.post(`${localhostURL}/buyCredits`,["event",1],defaultConfig);
+    });
 
+    test('it should request balanceOfAria', async (done) => {
+        try {
+            await axios.post(`${localhostURL}/balanceOfAria`, [], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
-    })
-    test('it should request buyCredits (message)',async (done)=>{
-        try{
-            await axios.post(`${localhostURL}/buyCredits`,["message",1],defaultConfig);
-
+    });
+    test('it should request balanceOfPoa', async (done) => {
+        try {
+            await axios.post(`${localhostURL}/balanceOfPoa`, [], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
-    })
-    test('it should request getIdentity',async (done)=>{
-        try{
-            await axios.post(`${localhostURL}/buyCredits`,["message",1],defaultConfig);
+    });
+
+    test('it should request buyCredits (certificate)', async (done) => {
+        try {
+            await axios.post(`${localhostURL}/buyCredits`, ["certificate", 3], defaultConfig);
 
             expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
-    })
-    test('it should create certificate',async (done)=>{
-        try{
-            const content={
+
+    });
+    test('it should request buyCredits (event)', async (done) => {
+        try {
+            await axios.post(`${localhostURL}/buyCredits`, ["event", 3], defaultConfig);
+
+            expect(true).toBeTruthy()
+        } catch (e) {
+            expect(false).toBeTruthy()
+        }
+        done()
+    });
+    test('it should request buyCredits (message)', async (done) => {
+        try {
+            await axios.post(`${localhostURL}/buyCredits`, ["message", 3], defaultConfig);
+
+            expect(true).toBeTruthy()
+        } catch (e) {
+            expect(false).toBeTruthy()
+        }
+        done()
+    });
+    test('it should request getIdentity', async (done) => {
+        try {
+            await axios.post(`${localhostURL}/buyCredits`, ["message", 1], defaultConfig);
+
+            expect(true).toBeTruthy()
+        } catch (e) {
+            expect(false).toBeTruthy()
+        }
+        done()
+    });
+    test('it should create certificate', async (done) => {
+        try {
+            const content = {
                 uri: 'http://localhost:3000/mycertificate.json',
                 content: {
                     $schema: 'https://cert.arianee.org/version1/ArianeeAsset.json',
                     name: 'Arianee',
                     v: '0.1',
-                    serialnumber: [{ type: 'serialnumber', value: 'SAMPLE' }],
+                    serialnumber: [{type: 'serialnumber', value: 'SAMPLE'}],
                     brand: 'Arianee',
                     model: 'Token goody',
                     description:
@@ -126,7 +126,7 @@ describe('ArianeeJSServer',()=>{
                                 'https://www.arianee.org/wp-content/uploads/2019/02/Screen-Shot-2019-02-27-at-12.14.36-PM.png'
                         }
                     ],
-                    socialmedia: { instagram: 'arianee_project', twitter: 'ArianeeProject' },
+                    socialmedia: {instagram: 'arianee_project', twitter: 'ArianeeProject'},
                     externalContents: [
                         {
                             title: 'About Arianee',
@@ -139,132 +139,150 @@ describe('ArianeeJSServer',()=>{
                 }
             };
 
-            certificateContent=content.content;
-            const result =await axios.post(`${localhostURL}/createCertificate`,[content],defaultConfig);
+            certificateContent = content.content;
+            const result = await axios.post(`${localhostURL}/createCertificate`, [content], defaultConfig);
 
-            certificateId=result.data.certificateId;
-            passphrase=result.data.passphrase;
+            certificateId = result.data.certificateId;
+            passphrase = result.data.passphrase;
+            expect(result.data.deepLink).toBeDefined();
 
             expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
-    })
+    });
 
-    test('it should request getCertificate with query issuer',async (done)=>{
-        try{
-           const cert= await axios.post(`${localhostURL}/getCertificate`,[1,'cert1passphrase',{issuer:true}],defaultConfig);
+    test('it should request getCertificate with query issuer', async (done) => {
+        try {
+            const cert = await axios.post(`${localhostURL}/getCertificate`, [1, 'cert1passphrase', {issuer: true}], defaultConfig);
             expect(cert.data.issuer).toBeDefined();
             expect(cert.data.content).toBeUndefined();
 
             expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
-    })
+    });
 
-    test('it should request getCertificate with query issuer',async (done)=>{
-        try{
-            const cert= await axios.post(`${localhostURL}/getCertificate`,[1,'cert1passphrase',{content:true}],defaultConfig);
+    test('it should request getCertificate with query issuer', async (done) => {
+        try {
+            const cert = await axios.post(`${localhostURL}/getCertificate`, [1, 'cert1passphrase', {content: true}], defaultConfig);
 
             expect(cert.data.content).toBeDefined();
             expect(true).toBeTruthy()
-        }catch(e){
+        } catch (e) {
             expect(false).toBeTruthy()
         }
         done()
-    })
+    });
 
-    test('it should request createArianeeEvent',async (done)=>{
-        try{
-            const cert= await axios.post(`${localhostURL}/createArianeeEvent`,[{
-                certificateId:certificateId,
-                content:{
-                    $schema:'https://cert.arianee.org/version1/ArianeeEvent-i18n.json',
-                    title:'zeokzef'
+    test('it should request createArianeeEvent', async (done) => {
+        try {
+            const cert = await axios.post(`${localhostURL}/createArianeeEvent`, [{
+                certificateId: certificateId,
+                content: {
+                    $schema: 'https://cert.arianee.org/version1/ArianeeEvent-i18n.json',
+                    title: 'zeokzef'
                 }
-            }],defaultConfig);
-            arianeeEventId=cert.data.arianeeEventId;
+            }], defaultConfig);
+            arianeeEventId = cert.data.arianeeEventId;
             expect(true).toBeTruthy()
-        }catch(e){
-            console.log(e)
+        } catch (e) {
+            console.log(e);
             expect(false).toBeTruthy()
         }
         done()
-    })
+    });
 
-    test('it should  acceptArianeeEvent',async (done)=>{
-        try{
-            const cert= await axios.post(`${localhostURL}/acceptArianeeEvent`,[arianeeEventId],defaultConfig);
+    test('it should  acceptArianeeEvent', async (done) => {
+        try {
+            const cert = await axios.post(`${localhostURL}/acceptArianeeEvent`, [arianeeEventId], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
-            console.log(e)
+        } catch (e) {
+            console.log(e);
             expect(false).toBeTruthy()
         }
         done()
-    })
+    });
 
-    test('it should request createArianeeEvent and refuse',async (done)=>{
-        try{
-            arianeeEventContent={
-                $schema:'https://cert.arianee.org/version1/ArianeeEvent-i18n.json',
-                title:'zeokzef'
+    test('it should request createArianeeEvent and refuse', async (done) => {
+        try {
+            arianeeEventContent = {
+                $schema: 'https://cert.arianee.org/version1/ArianeeEvent-i18n.json',
+                title: 'zeokzef'
             };
 
-            const cert= await axios.post(`${localhostURL}/createArianeeEvent`,[{
-                certificateId:certificateId,
-                content:arianeeEventContent
-            }],defaultConfig);
-            const arianeeEventId=cert.data.arianeeEventId;
-            await axios.post(`${localhostURL}/refuseArianeeEvent`,[arianeeEventId],defaultConfig);
+            const cert = await axios.post(`${localhostURL}/createArianeeEvent`, [{
+                certificateId: certificateId,
+                content: arianeeEventContent
+            }], defaultConfig);
+            const arianeeEventId = cert.data.arianeeEventId;
+            await axios.post(`${localhostURL}/refuseArianeeEvent`, [arianeeEventId], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
-            console.log(e)
+        } catch (e) {
+            console.log(e);
             expect(false).toBeTruthy()
         }
         done()
-    })
-    test('it should request storeArianeeEvent',async (done)=>{
+    });
+    test('it should request storeArianeeEvent', async (done) => {
 
-        try{
-            const cert= await axios.post(`${localhostURL}/storeArianeeEvent`,[
-                certificateId,arianeeEventId,arianeeEventContent,"https://arianee.cleverapps.io/arianeetestnet/rpc"
-            ],defaultConfig);
+        try {
+            const cert = await axios.post(`${localhostURL}/storeArianeeEvent`, [
+                certificateId, arianeeEventId, arianeeEventContent, "https://arianee.cleverapps.io/arianeetestnet/rpc"
+            ], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
-            console.log(e)
+        } catch (e) {
+            console.log(e);
             expect(false).toBeTruthy()
         }
         done()
-    })
-    test('it should request storeContentInRPCServer',async (done)=>{
+    });
+    test('it should request storeContentInRPCServer', async (done) => {
 
-        try{
-            const cert= await axios.post(`${localhostURL}/storeContentInRPCServer`,[
-                certificateId,certificateContent,"https://arianee.cleverapps.io/arianeetestnet/rpc"
-            ],defaultConfig);
+        try {
+            const cert = await axios.post(`${localhostURL}/storeContentInRPCServer`, [
+                certificateId, certificateContent, "https://arianee.cleverapps.io/arianeetestnet/rpc"
+            ], defaultConfig);
             expect(true).toBeTruthy()
-        }catch(e){
-            console.log(e)
+        } catch (e) {
+            console.log(e);
             expect(false).toBeTruthy()
         }
         done()
-    })
-    test('it should be 401 if apikey is wrong',async (done)=>{
-        try{
-            const cert= await axios.post(`${localhostURL}/approveStore`,undefined,{
-                headers:{
-                    'authorization':`Basic wrongprivatekey`
+    });
+    test('it should be 401 if apikey is wrong', async (done) => {
+        const call=jest.fn();
+
+        try {
+            const cert = await axios.post(`${localhostURL}/publicKey`, undefined, {
+                headers: {
+                    'authorization': `Basic WrongApiKey`
                 }
             });
-            expect(false).toBeTruthy()
-        }catch(e){
-            console.log(e.response.status)
-            expect(e.response.status).toBe(401)
+            call();
+        } catch (e) {
+            expect(call).toHaveBeenCalledTimes(0)
+            expect(e.response.status).toBe(401);
             expect(true).toBeTruthy()
         }
         done()
     })
-})
+    test('it should be 401 if apikey is undefined', async (done) => {
+        const call=jest.fn();
+        try {
+            const cert = await axios.post(`${localhostURL}/publicKey`, undefined, {
+                headers: {
+                }
+            });
+            call();
+        } catch (e) {
+            expect(call).toHaveBeenCalledTimes(0)
+            expect(e.response.status).toBe(401);
+            expect(true).toBeTruthy()
+        }
+        done()
+    })
+});

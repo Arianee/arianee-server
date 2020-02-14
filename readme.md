@@ -96,3 +96,24 @@ curl POST https://arianeeexample.cleverapps.io/createArianeeEvent -H Content-Typ
 curl POST https://arianeeexample.cleverapps.io/storeArianeeEvent -H Content-Type:application/json -H "authorization: Basic YourApiKey" 
 -d "["YourCertificateId",yourArianeeEventId,"yourArianeeEventContent","https://arianee.cleverapps.io/arianeetestnet/rpc"]"
 ```
+
+
+## Middleware logs
+
+You can log before and after request:
+
+```javascript
+app.logBefore=(req,res,next)=>{
+    console.log("before");
+    next();
+}
+
+app.logAfter=(req,res,next)=>{
+    console.log("after");
+
+    console.log(req.inError) // careful with error. Sometimes they are not well propagated
+    next();
+}
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+```
