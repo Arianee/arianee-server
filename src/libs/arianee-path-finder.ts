@@ -6,7 +6,7 @@ export const createRequestFromPathAndMethod = (method) => async (request, respon
         response.body = result;
         next();
     } catch (e) {
-        response.status(500).json(e);
+        response.status(500);
         request.inError = true;
         next();
     }

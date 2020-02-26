@@ -54,6 +54,7 @@ exports.createRequestFromPathAndMethod = function (method) { return function (re
                 return [3 /*break*/, 4];
             case 3:
                 e_1 = _a.sent();
+                console.log('coucoucc');
                 response.status(500).json(e_1);
                 request.inError = true;
                 next();
