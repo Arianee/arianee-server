@@ -1,6 +1,6 @@
 {
   "name": "@arianee/arianee-server",
-  "version": "0.3.2",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "build": "tsc",
     "dev": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\""
   },
+
   "files": [
     "dist"
   ],
@@ -20,7 +21,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Arianee/arianee-rpc-server"
+    "url": "https://github.com/Arianee/arianeejs-server"
   },
   "dependencies": {
     "@arianee/arianeejs": "^1.1.0",
