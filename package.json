@@ -1,5 +1,5 @@
 {
-  "name": "@arianee/arianee-server",
+  "name": "@arianee/arianeejs-server",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
@@ -13,9 +13,10 @@
     "build": "tsc",
     "dev": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\""
   },
-
   "files": [
-    "dist"
+    "dist",
+    "Dockerfile",
+    "readme.md"
   ],
   "author": "Arianee",
   "license": "ISC",
