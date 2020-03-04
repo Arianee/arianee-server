@@ -1,18 +1,19 @@
 {
   "name": "@arianee/arianee-server",
-  "version": "0.3.2",
+  "version": "0.0.1",
   "description": "",
-  "main": "dist/",
+  "main": "dist/index.js",
   "scripts": {
     "test": "npm run build && jest --runInBand",
     "test:watch": "jest --watchAll --runInBand",
-    "start": "nodemon dist/index.js",
+    "start": "nodemon dist/server.js",
     "start:express": "DEBUG=true nodemon dist/examples/express.example.js",
     "tsc:watch": "tsc --watch",
     "compile": "tsc && node dist/index.js",
     "build": "tsc",
     "dev": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\""
   },
+
   "files": [
     "dist"
   ],
@@ -20,10 +21,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Arianee/arianee-rpc-server"
+    "url": "https://github.com/Arianee/arianeejs-server"
   },
   "dependencies": {
-    "@arianee/arianeejs": "^0.40.0",
+    "@arianee/arianeejs": "^1.1.0",
     "axios": "^0.19.0",
     "express": "^4.17.1",
     "express-bearer-token": "^2.4.0",
