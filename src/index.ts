@@ -1,6 +1,7 @@
 import {Arianee, NETWORK} from "@arianee/arianeejs";
 import {createRequestFromPathAndMethod, pathFinderFromWallet} from "./libs/arianee-path-finder";
 import {AuthByApiKey} from "./middlewares/auth-middleware";
+import {networkURL} from "@arianee/arianeejs/dist/src/models/networkConfiguration";
 
 const express = require("express");
 const app = express();
@@ -22,7 +23,7 @@ export const arianeeServerFactory = async (configuration: {
     const arianee = await new Arianee().init(configuration.chain);
     const wallet = arianee.fromPrivateKey(configuration.privateKey);
 
-    console.log("Wallet initialized");
+    console.log("Wallet initialized on: ", configuration.chain);
     if (configuration.useBDH) {
         wallet.useBDHVault(configuration.useBDH);
     }
