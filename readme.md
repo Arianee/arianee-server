@@ -98,22 +98,22 @@ curl POST https://arianeeexample.cleverapps.io/storeArianeeEvent -H Content-Type
 ```
 
 
-## Middleware logs
-
-You can log before and after request:
+## Serving your own server
 
 ```javascript
-app.logBefore=(req,res,next)=>{
-    console.log("before");
-    next();
-}
+(async function(){
+    const app=await arianeeServerFactory({
+                                              privateKey: string
+                                              chain: NETWORK,
+                                              apiKey?: string,
+                                              useBDH?: string,
+                                              middlewareBefore?: Function
+                                              middlewareAfter?: Function
+                                          });
 
-app.logAfter=(req,res,next)=>{
-    console.log("after");
+    app.listen(port, () => console.log(`Arianee Server APP listening on port ${port}!`));
+}())
 
-    console.log(req.inError) // careful with error. Sometimes they are not well propagated
-    next();
-}
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
 ```

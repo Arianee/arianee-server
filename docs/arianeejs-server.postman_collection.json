@@ -1,0 +1,638 @@
+{
+	"info": {
+		"_postman_id": "35c03d01-f2ff-415b-8c88-6291a9a42262",
+		"name": "arianeejs-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/hello",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic {{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    2742263,\n    2837516,\n    {\n            \"$schema\": \"https://cert.arianee.org/version1/ArianeeEvent-i18n.json\",\n            \"title\": \"title\"\n        },\n    \"https://arianee.cleverapps.io/arianeetestnet/rpc\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/hello",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/publicKey",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/publicKey",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"publicKey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/approveStore",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/approveStore",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"approveStore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/buyCredits",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"certificate\",1]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/buyCredits",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"buyCredits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/createCertificate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n                \"uri\": \"http://localhost:3000/mycertificate.json\",\n                \"content\": {\n                    \"$schema\": \"https://cert.arianee.org/version1/ArianeeAsset.json\",\n                    \"name\": \"Arianee\"\n                }\n            }]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/createCertificate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"createCertificate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/storeContentInRPCServer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic {{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[6765877,\n{\n    \"$schema\": \"https://cert.arianee.org/version1/ArianeeAsset.json\",\n    \"name\": \"Arianee\"\n},\n\"https://us-central1-bdh-breitling-preprod.cloudfunctions.net/rpc\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/storeContentInRPCServer",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"storeContentInRPCServer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/destroy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[6765877]",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/destroyCertificate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"destroyCertificate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/recover",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[6765877]",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/recoverCertificate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recoverCertificate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/getCertificate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t2195528,\"yourCustomPassPase\",\n\t{\n\t\t\"content\":true\n\t}\n\t]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/getCertificate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getCertificate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/createArianeeEvent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic {{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"certificateId\": 2742263,\n        \"content\": {\n            \"$schema\": \"https://cert.arianee.org/version1/ArianeeEvent-i18n.json\",\n            \"title\": \"title\"\n        }\n    }\n]\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/createArianeeEvent",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"createArianeeEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/storeArianeeEvent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic {{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    34124,\n    8748475,\n   {\n    \"$schema\": \"https://cert.arianee.org/version1/ArianeeEvent-i18n.json\",\n    \"title\": \"Titre event\",\n    \"subtitle\": \"sous-titre\",\n    \"type\":\"service\"\n    },\n    \"https://us-central1-bdh-breitling-preprod.cloudfunctions.net/rpc\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/storeArianeeEvent",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"storeArianeeEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/createCertificateProofLink",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[6399989]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/createCertificateProofLink",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"createCertificateProofLink"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/isCertificateProofValid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2195528,\"1m6a3ir5wg80\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/isCertificateProofValid",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"isCertificateProofValid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/requestPoa",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/requestPoa",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"requestPoa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/requestAria",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/requestAria",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"requestAria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/balanceOfPoa",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/balanceOfPoa",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"balanceOfPoa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/balanceOfAria",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/balanceOfAria",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"balanceOfAria"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
