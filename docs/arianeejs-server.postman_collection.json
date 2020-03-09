@@ -310,7 +310,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n\t2195528,\"yourCustomPassPase\",\n\t{\n\t\t\"content\":true\n\t}\n\t]",
+					"raw": "[\n\t14734,\"o815voaphwui\",\n\t{\n\t\t\"content\":true,\n\t\t\"issuer\":true\n\t}\n\t]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -400,6 +400,158 @@
 					],
 					"path": [
 						"storeArianeeEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/acceptArianeeEvent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic {{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2233]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/acceptArianeeEvent",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"acceptArianeeEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/refuseArianeeEvent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic {{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2233]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/refuseArianeeEvent",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"refuseArianeeEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/setMessageAuthorizationFor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic {{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2233,\"addressOfSender\",true]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/setMessageAuthorizationFor",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"setMessageAuthorizationFor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/getMessageSenders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic {{apiKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\"certificateId\":2233 }\n\t]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/getMessageSenders",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"getMessageSenders"
 					]
 				}
 			},
