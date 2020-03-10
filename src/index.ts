@@ -1,10 +1,9 @@
 import {Arianee, NETWORK} from "@arianee/arianeejs";
 import {createRequestFromPathAndMethod, pathFinderFromWallet} from "./libs/arianee-path-finder";
 import {AuthByApiKey} from "./middlewares/auth-middleware";
-import {networkURL} from "@arianee/arianeejs/dist/src/models/networkConfiguration";
 
 const express = require("express");
-const app = express();
+
 const bodyParser = require("body-parser");
 
 
@@ -16,12 +15,12 @@ export const arianeeServerFactory = async (configuration: {
     middlewareBefore?: Function
     middlewareAfter?: Function
 }) => {
-
+  const app = express();
     process.env.apiKey = configuration.apiKey;
 
 
     const arianee = await new Arianee().init(configuration.chain);
-    const wallet = configuration.privateKey ?
+    let wallet = configuration.privateKey ?
         arianee.fromPrivateKey(configuration.privateKey)
         : arianee.fromRandomKey();
 
@@ -40,6 +39,16 @@ export const arianeeServerFactory = async (configuration: {
     if (configuration.apiKey) {
         app.use(AuthByApiKey(configuration.apiKey));
     }
+
+    app.use((req,res,next)=>{
+      if(configuration.privateKey){
+        next();
+      }
+      else{
+        wallet = arianee.fromRandomKey();
+        next();
+      }
+    });
 
 
     app.get('/hello', (req, res) => {
