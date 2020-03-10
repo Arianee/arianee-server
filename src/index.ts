@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 
 
 export const arianeeServerFactory = async (configuration: {
-    privateKey: string
+    privateKey?: string
     chain: NETWORK,
     apiKey?: string,
     useBDH?: string,
@@ -21,7 +21,9 @@ export const arianeeServerFactory = async (configuration: {
 
 
     const arianee = await new Arianee().init(configuration.chain);
-    const wallet = arianee.fromPrivateKey(configuration.privateKey);
+    const wallet = configuration.privateKey ?
+        arianee.fromPrivateKey(configuration.privateKey)
+        : arianee.fromRandomKey();
 
     console.log("Wallet initialized on: ", configuration.chain);
     if (configuration.useBDH) {
