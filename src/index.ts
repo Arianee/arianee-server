@@ -52,6 +52,13 @@ export const arianeeServerFactory = async (configuration: {
         return res.send('world');
     });
 
+    app.post('/chain', (req, res) => {
+        return res.json({
+            chainId:wallet.configuration.chainId,
+            chain:configuration.chain,
+            network:configuration.chain
+        });
+    });
     [
         {
             path: '/requestAria',

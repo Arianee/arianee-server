@@ -66,6 +66,25 @@ describe('ArianeeJSServer', () => {
             }
             done()
         });
+
+        test('it should request chain', async (done) => {
+            try {
+                const result = await request(randomApp).post('/chain')
+                    .send();
+
+                expect(result.body).toEqual({
+                        chainId: 1337,
+                        chain: 'arianeetestnet',
+                        network: 'arianeetestnet'
+                    }
+                );
+
+            } catch (e) {
+                expect(false).toBeTruthy()
+            }
+            done()
+        });
+
     });
 
     describe('arianeeJs-server is set with specific privateKey', () => {
@@ -143,6 +162,7 @@ describe('ArianeeJSServer', () => {
                 }
                 done()
             });
+
             test('it should request storeContentInRPCServer', async (done) => {
 
                 try {

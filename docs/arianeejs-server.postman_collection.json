@@ -47,6 +47,29 @@
 			"response": []
 		},
 		{
+			"name": "/chain",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/chain",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"chain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/publicKey",
 			"request": {
 				"method": "POST",
