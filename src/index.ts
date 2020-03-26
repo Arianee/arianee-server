@@ -1,6 +1,5 @@
 import {Arianee, NETWORK} from "@arianee/arianeejs";
 import {createRequestFromPathAndMethod, pathFinderFromWallet} from "./libs/arianee-path-finder";
-import {AuthByApiKey} from "./middlewares/auth-middleware";
 
 const express = require("express");
 
@@ -25,6 +24,8 @@ export const arianeeServerFactory = async (configuration: {
         : arianee.fromRandomKey();
 
     console.log("Wallet initialized on: ", configuration.chain);
+    console.log('public key:', wallet.publicKey);
+
     if (configuration.useBDH) {
         wallet.useBDHVault(configuration.useBDH);
     }
@@ -34,10 +35,6 @@ export const arianeeServerFactory = async (configuration: {
 
     if (configuration.middlewareBefore) {
         app.use(configuration.middlewareBefore);
-    }
-
-    if (configuration.apiKey) {
-        app.use(AuthByApiKey(configuration.apiKey));
     }
 
     app.use((req,res,next)=>{
@@ -71,7 +68,6 @@ export const arianeeServerFactory = async (configuration: {
         ...pathFinderFromWallet(wallet.methods)
     ]
         .forEach(method => {
-            console.log('accepted methods', method.path);
             app.post(method.path, method.method)
         });
 
@@ -79,6 +75,5 @@ export const arianeeServerFactory = async (configuration: {
         app.use(configuration.middlewareAfter)
     }
 
-    console.log('public key:', wallet.publicKey);
     return app;
 };

@@ -1,9 +1,7 @@
 export const createRequestFromPathAndMethod = (method) => async (request, response, next) => {
     const parameters = Object.keys(request.body).length > 0 ? request.body : undefined;
     try {
-        console.log(parameters)
-        const result = await method(...parameters);
-        console.log(result)
+        const result = await method(...parameters)
         response.json(result);
         response.body = result;
         next();
