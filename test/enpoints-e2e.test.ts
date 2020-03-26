@@ -178,7 +178,27 @@ describe('ArianeeJSServer', () => {
                 done()
             });
 
-            test('it should request getCertificate with query DEV', async (done) => {
+
+            test('it should request createAndStoreCertificate', async (done) => {
+                try {
+                    const content = basicCertificateContentFactory();
+
+                    const result = await request(app).post('/createAndStoreCertificate')
+                        .send([content,"https://arianee.cleverapps.io/arianeetestnet/rpc"]);
+
+                    expect(result.body.deepLink).toBeDefined();
+                    expect(result.body.certificateId).toBeDefined();
+                    expect(result.body.passphrase).toBeDefined();
+                    certificateId = result.body.certificateId;
+                    passphrase = result.body.passphrase;
+
+                } catch (e) {
+                    expect(false).toBeTruthy()
+                }
+                done()
+            });
+
+            test('it should request getCertificate with query', async (done) => {
                 try {
                     expect(certificateId).toBeDefined();
                     expect(passphrase).toBeDefined();
@@ -253,6 +273,28 @@ describe('ArianeeJSServer', () => {
                         ]);
 
                     expect(result.status).toBe(200);
+                } catch (e) {
+                    console.error(e);
+                    expect(false).toBeTruthy()
+                }
+                done()
+            });
+
+            test('it should request createAndStoreArianeeEvent', async (done) => {
+                try {
+                    const result = await request(app).post('/createAndStoreArianeeEvent')
+                        .send([
+                            {
+                                "certificateId": certificateId,
+                                "content": basicEventContentFactory()
+                            },
+                            "https://arianee.cleverapps.io/arianeetestnet/rpc"
+                        ]);
+
+                    expect(result.body.arianeeEventId).toBeDefined();
+
+                    arianeeEventId = result.body.arianeeEventId;
+                    expect(true).toBeTruthy()
                 } catch (e) {
                     console.error(e);
                     expect(false).toBeTruthy()
