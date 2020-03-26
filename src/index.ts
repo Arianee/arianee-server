@@ -23,7 +23,6 @@ export const arianeeServerFactory = async (configuration: {
         arianee.fromPrivateKey(configuration.privateKey)
         : arianee.fromRandomKey();
 
-    console.log(wallet.privateKey)
     console.log("Wallet initialized on: ", configuration.chain);
     console.log('public key:', wallet.publicKey);
 
