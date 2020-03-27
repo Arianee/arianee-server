@@ -1,15 +1,13 @@
 import {arianeeServerFactory} from './index';
 import {NETWORK} from "@arianee/arianeejs/dist/src";
 const port = process.env.PORT || 3000;
-const privateKey = process.env.privateKey;
+const privateKey = process.env.privateKey || '0x33bf56b28749d770d33cd36d1986aa5b8d4e781078e2bb501acff7409f795190';
 const chain: NETWORK = process.env.chain as NETWORK || NETWORK.arianeeTestnet;
 const useBDH= process.env.useBDH;
-const apiKey=process.env.apiKey;
 
 (async function(){
     const app=await arianeeServerFactory({
         privateKey,
-        apiKey,
         useBDH,
         chain
     });
