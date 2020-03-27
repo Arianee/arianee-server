@@ -13,7 +13,6 @@ ex post('url.com/requestPoa)
 ### process.env
 
 process.env.useBDH => url of bdh to use bdh vault
-apiKey => to pass in header
 chain => testnet, mainnet...etc
 privateKey => private key of wallet
 
@@ -21,13 +20,6 @@ privateKey => private key of wallet
 title: Wallet
 sidebar_label: Wallet
 ---
-
-### Authentification with ApiKey
-To interact with Arianee-server, you need a an apiKey. and pass it in header field authorization
-```bash
-curl GET https://arianeeexample.cleverapps.io/hello -H "authorization: Basic YourApiKey"
-// output: world
-```
 
 ### Calling methods
 
@@ -74,7 +66,7 @@ curl -H Content-Type:application/json -H "authorization: Basic YourApiKey" POST 
 ## Method with parameters
 You just need to pass data as an array. Parameters are exactly the same as arianeeJS doc.
 ```bash
-curl POST https://arianeeexample.cleverapps.io/buyCredits -H Content-Type:application/json -H "authorization: Basic YourApiKey" -d "["certificate",1]"
+curl POST https://arianeeexample.cleverapps.io/buyCredits -H Content-Type:application/json -H -d "["certificate",1]"
 ```
 
 
@@ -82,7 +74,7 @@ curl POST https://arianeeexample.cleverapps.io/buyCredits -H Content-Type:applic
 
 ## Create event: createArianeeEvent
 ```bash
-curl POST https://arianeeexample.cleverapps.io/createArianeeEvent -H Content-Type:application/json -H "authorization: Basic YourApiKey" 
+curl POST https://arianeeexample.cleverapps.io/createArianeeEvent -H Content-Type:application/json 
 -d "[{certificateId:certificateId,
                    content:{
                        $schema:'https://cert.arianee.org/version1/ArianeeEvent-i18n.json',
@@ -93,7 +85,7 @@ curl POST https://arianeeexample.cleverapps.io/createArianeeEvent -H Content-Typ
 
 ## store Arianee event content: storeArianeeEvent
 ```bash
-curl POST https://arianeeexample.cleverapps.io/storeArianeeEvent -H Content-Type:application/json -H "authorization: Basic YourApiKey" 
+curl POST https://arianeeexample.cleverapps.io/storeArianeeEvent -H Content-Type:application/json 
 -d "["YourCertificateId",yourArianeeEventId,"yourArianeeEventContent","https://arianee.cleverapps.io/arianeetestnet/rpc"]"
 ```
 
