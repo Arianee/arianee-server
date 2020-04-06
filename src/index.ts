@@ -61,14 +61,6 @@ export const arianeeServerFactory = async (configuration: {
     });
     [
         {
-            path: '/requestAria',
-            method: createRequestFromPathAndMethod(wallet.requestAria)
-        },
-        {
-            path: '/requestPoa',
-            method: createRequestFromPathAndMethod(wallet.requestPoa)
-        },
-        {
             path: '/publicKey',
             method: createRequestFromPathAndMethod(() => wallet.publicKey)
         },
