@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@arianee/arianeejs": "^1.8.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-bearer-token": "^2.4.0",
     "express-jwt": "^5.3.1",

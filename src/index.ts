@@ -4,7 +4,7 @@ import {createRequestFromPathAndMethod, pathFinderFromWallet} from "./libs/arian
 const express = require("express");
 
 const bodyParser = require("body-parser");
-
+const cors = require('cors')
 
 export const arianeeServerFactory = async (configuration: {
     privateKey?: string
@@ -29,7 +29,7 @@ export const arianeeServerFactory = async (configuration: {
     if (configuration.useBDH) {
         wallet.useBDHVault(configuration.useBDH);
     }
-
+    app.use(cors());
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
 
