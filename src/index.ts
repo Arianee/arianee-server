@@ -12,7 +12,8 @@ export const arianeeServerFactory = async (configuration: {
     apiKey?: string,
     useBDH?: string,
     middlewareBefore?: Function
-    middlewareAfter?: Function
+    middlewareAfter?: Function,
+    customSendTransaction?:(transaction)=>Promise<any>
 }) => {
   const app = express();
     process.env.apiKey = configuration.apiKey;
@@ -26,8 +27,12 @@ export const arianeeServerFactory = async (configuration: {
     console.log("Wallet initialized on: ", configuration.chain);
     console.log('public key:', wallet.publicKey);
 
+
     if (configuration.useBDH) {
         wallet.useBDHVault(configuration.useBDH);
+    }
+    if (configuration.customSendTransaction) {
+        wallet.setCustomSendTransaction(configuration.customSendTransaction);
     }
     app.use(cors());
     app.use(bodyParser.urlencoded({extended: false}));

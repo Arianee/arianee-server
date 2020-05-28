@@ -73,7 +73,7 @@ describe('ArianeeJSServer', () => {
                     .send();
 
                 expect(result.body).toEqual({
-                        chainId: 1337,
+                        chainId: 82661126,
                         chain: 'arianeetestnet',
                         network: 'arianeetestnet'
                     }
