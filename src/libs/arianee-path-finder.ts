@@ -5,11 +5,11 @@ export const createRequestFromPathAndMethod = (method) => async (request, respon
 
         response.body = result;
         next();
-    } catch (e) {
-        console.error(e);
-        response.body=e.toString();
+    } catch (error) {
+        response.body=error;
+        response.inError = true;
         request.inError = true;
-        console.error(e);
+
         next();
     }
 };
