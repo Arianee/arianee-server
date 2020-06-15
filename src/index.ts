@@ -11,8 +11,8 @@ export const arianeeServerFactory = async (configuration: {
     chain: NETWORK,
     apiKey?: string,
     useBDH?: string,
-    middlewareBefore?: Function
-    middlewareAfter?: Function,
+    middlewareBefore?: Function[]
+    middlewareAfter?: Function[]
     customSendTransaction?:(transaction)=>Promise<any>
 }) => {
   const app = express();
@@ -53,6 +53,7 @@ export const arianeeServerFactory = async (configuration: {
     });
 
 
+
     app.get('/hello', (req, res) => {
         return res.send('world');
     });
@@ -67,7 +68,11 @@ export const arianeeServerFactory = async (configuration: {
     [
         {
             path: '/publicKey',
-            method: createRequestFromPathAndMethod(() => wallet.publicKey)
+            method: createRequestFromPathAndMethod(() => wallet.address)
+        },
+        {
+            path: '/address',
+            method: createRequestFromPathAndMethod(() => wallet.address)
         },
         ...pathFinderFromWallet(wallet.methods)
     ]
@@ -78,6 +83,17 @@ export const arianeeServerFactory = async (configuration: {
     if (configuration.middlewareAfter) {
         app.use(configuration.middlewareAfter)
     }
+
+    app.use((req, res, next) => {
+        if (res.inError) {
+            res.status(500).json(res.body);
+        } else if (res.body) {
+            res.status(200).json(res.body)
+        } else {
+            res.status(404).end();
+
+        }
+    });
 
     return app;
 };

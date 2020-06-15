@@ -121,7 +121,7 @@ describe('ArianeeJSServer', () => {
                 .send();
         });
 
-        describe("Certificate Endpoints", () => {
+        describe("DEV Certificate Endpoints", () => {
             test('it should request buyCredits (certificate)', async (done) => {
 
                 const numberOfCertificate = 3;
