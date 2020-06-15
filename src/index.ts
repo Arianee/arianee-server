@@ -13,13 +13,25 @@ export const arianeeServerFactory = async (configuration: {
     useBDH?: string,
     middlewareBefore?: Function[]
     middlewareAfter?: Function[]
-    customSendTransaction?:(transaction)=>Promise<any>
+    customSendTransaction?:(transaction)=>Promise<any>,
+    arianeeCustomConfiguration?: {
+        walletReward?: {
+            address: string;
+        };
+        brandDataHubReward?: {
+            address: string;
+        };
+        httpProvider?: any;
+        transactionOptions?: any;
+        deepLink?: string;
+        protocolConfiguration?: any;
+    }
 }) => {
   const app = express();
     process.env.apiKey = configuration.apiKey;
 
 
-    const arianee = await new Arianee().init(configuration.chain);
+    const arianee = await new Arianee().init(configuration.chain, configuration.arianeeCustomConfiguration);
     let wallet = configuration.privateKey ?
         arianee.fromPrivateKey(configuration.privateKey)
         : arianee.fromRandomKey();
