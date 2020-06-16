@@ -3,7 +3,7 @@ export const createRequestFromPathAndMethod = (method) => async (request, respon
     try {
         const result = await method(...parameters)
 
-        response.body = result;
+        response.body = JSON.parse(JSON.stringify(result));
         next();
     } catch (error) {
         response.body=error;
