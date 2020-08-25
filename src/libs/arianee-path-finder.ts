@@ -1,7 +1,13 @@
 export const createRequestFromPathAndMethod = (method) => async (request, response, next) => {
-    const parameters = Object.keys(request.body).length > 0 ? request.body : undefined;
     try {
-        const result = await method(...parameters)
+        let result;
+        if (request.body && Array.isArray(request.body)) {
+           const preparedParameters = Object.keys(request.body).length > 0 ? request.body : undefined;
+            result = await method(...preparedParameters);
+        }else{
+            const preparedParameters=request.body;
+            result = await method(preparedParameters);
+        }
 
         response.body = JSON.parse(JSON.stringify(result));
         next();
@@ -14,13 +20,23 @@ export const createRequestFromPathAndMethod = (method) => async (request, respon
     }
 };
 export const pathFinderFromWallet = (listOfMethods: any): { path: string, method: any }[] => {
+    let methods = [];
 
-    return Object.getOwnPropertyNames(listOfMethods)
-        .map(methodName => {
-            const method = createRequestFromPathAndMethod(listOfMethods[methodName]);
-            return ({
-                path: `/${methodName}`,
-                method
-            });
-        })
+    const makePath = (object, path = '') => {
+        return Object.getOwnPropertyNames(object)
+            .forEach(prop => {
+                if (typeof object[prop] === 'function') {
+                    methods.push({
+                        path: path + '/' + prop,
+                        method: createRequestFromPathAndMethod(object[prop])
+                    })
+                } else {
+                    return makePath(object[prop], path + '/' + prop)
+                }
+            })
+    };
+
+    makePath(listOfMethods);
+
+    return methods;
 };
