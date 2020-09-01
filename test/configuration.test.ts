@@ -10,12 +10,12 @@ describe('Configuration and different behaviors', () => {
         let randomApp;
 
         beforeAll(async () => {
-            const arianee = await new Arianee().init(NETWORK.arianeeTestnet);
+            const arianee = await new Arianee().init(NETWORK.testnet);
             const privateKey = arianee.fromRandomKey().privateKey;
 
 
             randomApp = await arianeeServerFactory({
-                chain: NETWORK.arianeeTestnet
+                chain: NETWORK.testnet
             });
         });
 

@@ -8,7 +8,7 @@ describe('ArianeeJSServer arianeeCustomConfiguration', () => {
 
     test('it should use custom gasprice', async (done) => {
 
-        const arianee = await new Arianee().init(NETWORK.arianeeTestnet);
+        const arianee = await new Arianee().init(NETWORK.testnet);
         const privateKey = arianee.fromRandomKey().privateKey;
 
         const customSend = jest.fn().mockImplementation((transaction) => {
@@ -18,7 +18,7 @@ describe('ArianeeJSServer arianeeCustomConfiguration', () => {
 
 
         const app = await arianeeServerFactory({
-            chain: NETWORK.arianeeTestnet,
+            chain: NETWORK.testnet,
             privateKey: privateKey,
             customSendTransaction: customSend,
             arianeeCustomConfiguration: { transactionOptions: customConfig }
