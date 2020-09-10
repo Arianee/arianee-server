@@ -92,9 +92,19 @@ export const arianeeServerFactory = async (configuration: {
             app.post(method.path, method.method)
         });
 
+    // ArianeeJS V2
+    [
+        ...pathFinderFromWallet(wallet.arianeeMethods)
+    ].forEach(method => {
+        app.post(`/v2${method.path}`, method.method)
+    });
+
     if (configuration.middlewareAfter) {
         app.use(configuration.middlewareAfter)
     }
+
+
+
 
     app.use((req, res, next) => {
         if (res.inError) {
@@ -106,6 +116,8 @@ export const arianeeServerFactory = async (configuration: {
 
         }
     });
+
+
 
     return app;
 };

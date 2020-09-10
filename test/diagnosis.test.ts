@@ -19,7 +19,7 @@ describe('ArianeeJSServer', () => {
 
         });
 
-        test('DEV it should return diagnosis', async (done) => {
+        test('it should return diagnosis', async (done) => {
 
             const result = await request(randomApp).post('/createCertificate')
                 .send([{
