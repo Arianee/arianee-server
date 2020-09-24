@@ -5,16 +5,16 @@ import {Arianee, NETWORK} from "@arianee/arianeejs/dist/src";
 jest.setTimeout(20000);
 
 describe('ArianeeJSServer', () => {
-    describe('arianeeJs-server is set without privateKey', () => {
+    describe('DEV arianeeJs-server is set without privateKey', () => {
         let randomApp;
 
         beforeAll(async () => {
-            const arianee = await new Arianee().init(NETWORK.arianeeTestnet);
+            const arianee = await new Arianee().init(NETWORK.testnet);
             const privateKey = arianee.fromRandomKey().privateKey;
 
 
             randomApp = await arianeeServerFactory({
-                chain: NETWORK.arianeeTestnet
+                chain: NETWORK.testnet
             });
 
         });
@@ -72,10 +72,12 @@ describe('ArianeeJSServer', () => {
                 const result = await request(randomApp).post('/chain')
                     .send();
 
+                console.log(result.body)
+
                 expect(result.body).toEqual({
-                        chainId: 82661126,
-                        chain: 'arianeetestnet',
-                        network: 'arianeetestnet'
+                        chainId: 77,
+                    chain: 'testnet',
+                    network: 'testnet'
                     }
                 );
 
@@ -103,25 +105,26 @@ describe('ArianeeJSServer', () => {
             title: 'zeokzef'
         });
         beforeAll(async () => {
-            const arianee = await new Arianee().init(NETWORK.arianeeTestnet);
+            const arianee = await new Arianee().init(NETWORK.testnet);
             const privateKey = arianee.fromRandomKey().privateKey;
 
             app = await arianeeServerFactory({
-                chain: NETWORK.arianeeTestnet,
+                chain: NETWORK.testnet,
                 privateKey: privateKey
             });
 
             await request(app).post('/requestPoa')
                 .send();
 
-            await request(app).post('/requestAria')
-                .send();
-
-            const responseapproveStore = await request(app).post('/approveStore')
-                .send();
+            await Promise.all([
+                request(app).post('/requestAria')
+                    .send(),
+                request(app).post('/approveStore')
+                    .send()
+            ])
         });
 
-        describe("DEV Certificate Endpoints", () => {
+        describe("Certificate Endpoints", () => {
             test('it should request buyCredits (certificate)', async (done) => {
 
                 const numberOfCertificate = 3;
@@ -167,7 +170,7 @@ describe('ArianeeJSServer', () => {
 
                 try {
                     const result = await request(app).post('/storeContentInRPCServer')
-                        .send([certificateId, basicCertificateContentFactory().content, "https://arianee.cleverapps.io/arianeetestnet/rpc"]);
+                        .send([certificateId, basicCertificateContentFactory().content, "https://arianee.cleverapps.io/testnet/rpc"]);
 
                     expect(result.status).toBe(200);
                     expect(true).toBeTruthy()
@@ -184,7 +187,7 @@ describe('ArianeeJSServer', () => {
                     const content = basicCertificateContentFactory();
 
                     const result = await request(app).post('/createAndStoreCertificate')
-                        .send([content,"https://arianee.cleverapps.io/arianeetestnet/rpc"]);
+                        .send([content, "https://arianee.cleverapps.io/testnet/rpc"]);
 
                     expect(result.body.deepLink).toBeDefined();
                     expect(result.body.certificateId).toBeDefined();
@@ -268,7 +271,7 @@ describe('ArianeeJSServer', () => {
                             certificateId,
                             arianeeEventId,
                             basicEventContentFactory(),
-                            "https://arianee.cleverapps.io/arianeetestnet/rpc"
+                            "https://arianee.cleverapps.io/testnet/rpc"
 
                         ]);
 
@@ -288,7 +291,7 @@ describe('ArianeeJSServer', () => {
                                 "certificateId": certificateId,
                                 "content": basicEventContentFactory()
                             },
-                            "https://arianee.cleverapps.io/arianeetestnet/rpc"
+                            "https://arianee.cleverapps.io/testnet/rpc"
                         ]);
 
                     expect(result.body.arianeeEventId).toBeDefined();

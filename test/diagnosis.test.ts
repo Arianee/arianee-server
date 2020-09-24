@@ -9,17 +9,17 @@ describe('ArianeeJSServer', () => {
         let randomApp;
 
         beforeAll(async () => {
-            const arianee = await new Arianee().init(NETWORK.arianeeTestnet);
+            const arianee = await new Arianee().init(NETWORK.testnet);
             const privateKey = arianee.fromRandomKey().privateKey;
 
 
             randomApp = await arianeeServerFactory({
-                chain: NETWORK.arianeeTestnet
+                chain: NETWORK.testnet
             });
 
         });
 
-        test('DEV it should return diagnosis', async (done) => {
+        test('it should return diagnosis', async (done) => {
 
             const result = await request(randomApp).post('/createCertificate')
                 .send([{

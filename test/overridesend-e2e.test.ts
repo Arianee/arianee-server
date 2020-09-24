@@ -18,7 +18,7 @@ describe('ArianeeJSServer overridesend', () => {
         });
 
         beforeAll(async () => {
-            const arianee = await new Arianee().init(NETWORK.arianeeTestnet);
+            const arianee = await new Arianee().init(NETWORK.testnet);
             const privateKey = arianee.fromRandomKey().privateKey;
 
             customSend = jest.fn().mockImplementation((transaction) => {
@@ -26,7 +26,7 @@ describe('ArianeeJSServer overridesend', () => {
             });
 
             app = await arianeeServerFactory({
-                chain: NETWORK.arianeeTestnet,
+                chain: NETWORK.testnet,
                 privateKey: privateKey,
                 customSendTransaction: customSend
             });
