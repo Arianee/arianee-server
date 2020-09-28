@@ -25,6 +25,7 @@ export const arianeeServerFactory = async (configuration: {
         transactionOptions?: any;
         deepLink?: string;
         protocolConfiguration?: any;
+        defaultArianeePrivacyGateway?:string;
     }
 }) => {
   const app = express();
