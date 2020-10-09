@@ -2,10 +2,10 @@ import {arianeeServerFactory} from '../src'
 import request from 'supertest';
 import {Arianee, NETWORK} from "@arianee/arianeejs/dist/src";
 
-jest.setTimeout(20000);
+jest.setTimeout(40000);
 
 describe('ArianeeJSServer', () => {
-    describe('DEV arianeeJs-server is set without privateKey', () => {
+    describe('arianeeJs-server is set without privateKey', () => {
         let randomApp;
 
         beforeAll(async () => {
@@ -89,7 +89,7 @@ describe('ArianeeJSServer', () => {
 
     });
 
-    describe('arianeeJs-server is set with specific privateKey', () => {
+    describe('DEV arianeeJs-server is set with specific privateKey', () => {
         let app, passphrase;
         let certificateId = 9510549;
         const basicCertificateContentFactory = () => ({
@@ -124,7 +124,7 @@ describe('ArianeeJSServer', () => {
             ])
         });
 
-        describe("Certificate Endpoints", () => {
+        describe("DEV Certificate Endpoints", () => {
             test('it should request buyCredits (certificate)', async (done) => {
 
                 const numberOfCertificate = 3;

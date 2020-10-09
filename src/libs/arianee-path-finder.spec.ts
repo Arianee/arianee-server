@@ -1,5 +1,5 @@
 import {Arianee} from "@arianee/arianeejs/dist/src";
-import {pathFinderFromWallet} from "./arianee-path-finder";
+import {pathFinderContractFromWallet, pathFinderFromWallet} from "./arianee-path-finder";
 
 describe('path finder',()=>{
     test('init', async (done) => {
@@ -53,5 +53,22 @@ describe('path finder',()=>{
             expect(element2).toBeDefined();
             expect(typeof element2.method).toBe('function');
         })
+    })
+
+    describe('smart contract', () => {
+        test('should extract all smart contracts call/send', async (done) => {
+
+            const arianee = await new Arianee().init();
+            const wallet = arianee.fromRandomMnemonic();
+
+            const paths = pathFinderContractFromWallet(wallet.contracts);
+            const getShouldExist = paths.find(path => path.path === '/messageContract/sendMessage/call');
+            const sendShouldExist = paths.find(path => path.path === '/messageContract/sendMessage/send');
+
+            expect(getShouldExist).toBeTruthy();
+            expect(sendShouldExist).toBeTruthy();
+
+            done();
+        });
     })
 })

@@ -53,6 +53,8 @@ Obviously you cannot call method like ``fromRandomKey``, or ``useBDH``. These me
 - POST /storeArianeeEvent
 - POST /createCertificateProofLink
 - POST /createArianeeEvent
+- POST /contracts/storeContract/buyCredit/send
+- POST /contracts/storeContract/getPastEvents
 
 ### Methods, endpoints and parameters
 
