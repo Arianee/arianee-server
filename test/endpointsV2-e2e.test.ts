@@ -2,7 +2,7 @@ import {arianeeServerFactory} from '../src'
 import request from 'supertest';
 import {Arianee, NETWORK} from "@arianee/arianeejs/dist/src";
 
-jest.setTimeout(20000);
+jest.setTimeout(30000);
 
 describe('ArianeeJSServer V2', () => {
 
