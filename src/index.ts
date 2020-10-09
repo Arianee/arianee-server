@@ -1,5 +1,9 @@
 import {Arianee, NETWORK} from "@arianee/arianeejs";
-import {createRequestFromPathAndMethod, pathFinderFromWallet} from "./libs/arianee-path-finder";
+import {
+    createRequestFromPathAndMethod,
+    pathFinderContractFromWallet,
+    pathFinderFromWallet
+} from "./libs/arianee-path-finder";
 
 const express = require("express");
 
@@ -99,6 +103,11 @@ export const arianeeServerFactory = async (configuration: {
     ].forEach(method => {
         app.post(`/v2${method.path}`, method.method)
     });
+
+    pathFinderContractFromWallet(wallet.contracts)
+        .forEach(method => {
+            app.post(`/contracts${method.path}`, method.method)
+        });
 
     if (configuration.middlewareAfter) {
         app.use(configuration.middlewareAfter)
