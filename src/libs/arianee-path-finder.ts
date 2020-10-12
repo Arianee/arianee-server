@@ -1,13 +1,16 @@
 export const createRequestFromPathAndMethod = (method) => async (request, response, next) => {
     try {
         let result;
+
         if (request.body && Array.isArray(request.body)) {
            const preparedParameters = Object.keys(request.body).length > 0 ? request.body : undefined;
             result = await method(...preparedParameters);
+        } else if (request.body && typeof request.body === "object" && Object.keys(request.body).length > 0) {
+            result = await method(request.body);
         }else{
-            const preparedParameters=request.body;
-            result = await method(preparedParameters);
+            result = await method();
         }
+
 
         response.body = JSON.parse(JSON.stringify(result));
         next();

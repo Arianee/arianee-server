@@ -89,7 +89,7 @@ describe('ArianeeJSServer', () => {
 
     });
 
-    describe('DEV arianeeJs-server is set with specific privateKey', () => {
+    describe('arianeeJs-server is set with specific privateKey', () => {
         let app, passphrase;
         let certificateId = 9510549;
         const basicCertificateContentFactory = () => ({
@@ -124,7 +124,7 @@ describe('ArianeeJSServer', () => {
             ])
         });
 
-        describe("DEV Certificate Endpoints", () => {
+        describe("Certificate Endpoints", () => {
             test('it should request buyCredits (certificate)', async (done) => {
 
                 const numberOfCertificate = 3;
