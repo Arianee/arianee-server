@@ -35,6 +35,55 @@ describe('Smartcontracts', () => {
         });
 
         describe("Smartassets Endpoints", () => {
+            test('it should be able to do a call without parameters', async (done) => {
+                try {
+                    const response = await request(app).post('/contracts/storeContract/ariaUSDExchange/call')
+                        .send();
+
+                    expect(response.status).toBe(200);
+
+                    expect(true).toBeTruthy()
+                } catch (e) {
+                    console.log(e);
+                    expect(false).toBeTruthy()
+                }
+                done()
+
+            });
+
+            test('it should be able to do a call with parameters empty array', async (done) => {
+
+                try {
+                    const response = await request(app).post('/contracts/storeContract/ariaUSDExchange/call')
+                        .send([]);
+
+                    expect(response.status).toBe(200);
+
+                    expect(true).toBeTruthy()
+                } catch (e) {
+                    console.log(e);
+                    expect(false).toBeTruthy()
+                }
+                done()
+
+            });
+
+            test('it should be able to do a call with parameter undefined', async (done) => {
+
+                try {
+                    const response = await request(app).post('/contracts/storeContract/ariaUSDExchange/call')
+                        .send(undefined);
+
+                    expect(response.status).toBe(200);
+
+                    expect(true).toBeTruthy()
+                } catch (e) {
+                    console.log(e);
+                    expect(false).toBeTruthy()
+                }
+                done()
+
+            });
             test('it should be able to do a call', async (done) => {
 
                 try {
