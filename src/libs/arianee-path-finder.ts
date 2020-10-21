@@ -11,8 +11,8 @@ export const createRequestFromPathAndMethod = (method) => async (request, respon
             result = await method();
         }
 
-
         response.body = JSON.parse(JSON.stringify(result));
+
         next();
     } catch (error) {
         console.error(error);

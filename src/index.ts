@@ -69,8 +69,6 @@ export const arianeeServerFactory = async (configuration: {
       }
     });
 
-
-
     app.get('/hello', (req, res) => {
         return res.send('world');
     });
@@ -109,17 +107,17 @@ export const arianeeServerFactory = async (configuration: {
             app.post(`/contracts${method.path}`, method.method)
         });
 
+
+    app.post('/web3/eth/getBlock', createRequestFromPathAndMethod(wallet.web3.eth.getBlock));
+
     if (configuration.middlewareAfter) {
         app.use(configuration.middlewareAfter)
     }
 
-
-
-
     app.use((req, res, next) => {
         if (res.inError) {
             res.status(500).json(res.body);
-        } else if (res.body) {
+        } else if (res.body !== undefined && res.body !== null) {
             res.status(200).json(res.body)
         } else {
             res.status(404).end();
