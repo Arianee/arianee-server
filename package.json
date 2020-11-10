@@ -24,7 +24,7 @@
     "url": "https://github.com/Arianee/arianeejs-server"
   },
   "dependencies": {
-    "@arianee/arianeejs": "^1.36.0",
+    "@arianee/arianeejs": "^1.37.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-bearer-token": "^2.4.0",
