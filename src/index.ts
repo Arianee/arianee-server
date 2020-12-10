@@ -106,7 +106,8 @@ export const arianeeServerFactory = async (configuration: {
         .forEach(method => {
             app.post(`/contracts${method.path}`, method.method)
         });
-
+    
+    app.post('/web3/eth/getBalance', createRequestFromPathAndMethod(wallet.web3.eth.getBalance));
 
     app.post('/web3/eth/getBlock', createRequestFromPathAndMethod(wallet.web3.eth.getBlock));
 
