@@ -44,10 +44,7 @@ export const arianeeServerFactory = async (configuration: {
     console.log("Wallet initialized on: ", configuration.chain);
     console.log('public key:', wallet.publicKey);
 
-
-    if (configuration.useBDH) {
-        wallet.useBDHVault(configuration.useBDH);
-    }
+    
     if (configuration.customSendTransaction) {
         wallet.setCustomSendTransaction(configuration.customSendTransaction);
     }
