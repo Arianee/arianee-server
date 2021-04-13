@@ -10,11 +10,11 @@ describe('ArianeeJSServer', () => {
 
         beforeAll(async () => {
             const arianee = await new Arianee().init(NETWORK.testnet);
-            const privateKey = arianee.fromRandomKey().privateKey;
+            const arianeeWallet = arianee.fromRandomKey();
 
 
             randomApp = await arianeeServerFactory({
-                chain: NETWORK.testnet
+                arianeeWallet
             });
 
         });
@@ -72,8 +72,6 @@ describe('ArianeeJSServer', () => {
                 const result = await request(randomApp).post('/chain')
                     .send();
 
-                console.log(result.body)
-
                 expect(result.body).toEqual({
                         chainId: 77,
                     chain: 'testnet',
@@ -106,11 +104,10 @@ describe('ArianeeJSServer', () => {
         });
         beforeAll(async () => {
             const arianee = await new Arianee().init(NETWORK.testnet);
-            const privateKey = arianee.fromRandomKey().privateKey;
+            const arianeeWallet = arianee.fromRandomKey();
 
             app = await arianeeServerFactory({
-                chain: NETWORK.testnet,
-                privateKey: privateKey
+                arianeeWallet
             });
 
             await request(app).post('/requestPoa')

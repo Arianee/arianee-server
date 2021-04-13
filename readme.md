@@ -96,11 +96,10 @@ curl POST https://arianeeexample.cleverapps.io/storeArianeeEvent -H Content-Type
 
 ```javascript
 (async function(){
+    const arianee = await new Arianee().init(chain);
+    const wallet = arianee.fromPrivateKey(privateKey);
     const app=await arianeeServerFactory({
-                                              privateKey: string
-                                              chain: NETWORK,
-                                              apiKey?: string,
-                                              useBDH?: string,
+                                              arianeeWallet:wallet
                                               middlewareBefore?: Function
                                               middlewareAfter?: Function
                                           });

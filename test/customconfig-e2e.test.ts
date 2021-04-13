@@ -8,20 +8,18 @@ describe('ArianeeJSServer arianeeCustomConfiguration', () => {
 
     test('it should use custom gasprice', async (done) => {
 
-        const arianee = await new Arianee().init(NETWORK.testnet);
-        const privateKey = arianee.fromRandomKey().privateKey;
+        const customConfig = { transactionOptions:{gas: 20000000, gasPrice: 10000000000 }};
+        const arianee = await new Arianee().init(NETWORK.testnet, customConfig);
+        const arianeeWallet = arianee.fromRandomKey();
 
         const customSend = jest.fn().mockImplementation((transaction) => {
             return Promise.resolve()
         });
-        const customConfig = { gas: 20000000, gasPrice: 10000000000 };
 
 
         const app = await arianeeServerFactory({
-            chain: NETWORK.testnet,
-            privateKey: privateKey,
-            customSendTransaction: customSend,
-            arianeeCustomConfiguration: { transactionOptions: customConfig }
+            arianeeWallet,
+            customSendTransaction: customSend
         });
         const numberOfCertificate = 3;
 
@@ -35,8 +33,8 @@ describe('ArianeeJSServer arianeeCustomConfiguration', () => {
         expect(result.body.from).toBeDefined();
         expect(result.body.data).toBeDefined();
         expect(result.body.gas).toBeDefined();
-        expect(result.body.gasPrice).toBe(customConfig.gasPrice);
-        expect(result.body.gas).toBe(customConfig.gas);
+        expect(result.body.gasPrice).toBe(customConfig.transactionOptions.gasPrice);
+        expect(result.body.gas).toBe(customConfig.transactionOptions.gas);
 
         expect(customSend).toHaveBeenCalledTimes(1);
         expect(true).toBeTruthy();
