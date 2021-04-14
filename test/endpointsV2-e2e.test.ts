@@ -23,11 +23,10 @@ describe('ArianeeJSServer V2', () => {
         });
         beforeAll(async () => {
             const arianee = await new Arianee().init(NETWORK.testnet);
-            const privateKey = arianee.fromRandomKey().privateKey;
+            const arianeeWallet = arianee.fromRandomKey();
 
             app = await arianeeServerFactory({
-                chain: NETWORK.testnet,
-                privateKey: privateKey
+                arianeeWallet
             });
 
             request(app).post('/v2/poa/faucet')

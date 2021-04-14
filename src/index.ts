@@ -1,9 +1,9 @@
-import {Arianee, NETWORK} from "@arianee/arianeejs";
 import {
-    createRequestFromPathAndMethod,
-    pathFinderContractFromWallet,
-    pathFinderFromWallet
+  createRequestFromPathAndMethod,
+  pathFinderContractFromWallet,
+  pathFinderFromWallet
 } from "./libs/arianee-path-finder";
+import {ArianeeWallet} from "@arianee/arianeejs/dist/src/core/wallet";
 
 const express = require("express");
 
@@ -11,40 +11,19 @@ const bodyParser = require("body-parser");
 const cors = require('cors')
 
 export const arianeeServerFactory = async (configuration: {
-    privateKey?: string
-    chain: NETWORK,
-    apiKey?: string,
-    useBDH?: string,
     middlewareBefore?: Function[]
     middlewareAfter?: Function[]
     customSendTransaction?:(transaction)=>Promise<any>,
-    arianeeCustomConfiguration?: {
-        walletReward?: {
-            address: string;
-        };
-        brandDataHubReward?: {
-            address: string;
-        };
-        httpProvider?: any;
-        transactionOptions?: any;
-        deepLink?: string;
-        protocolConfiguration?: any;
-        defaultArianeePrivacyGateway?:string;
-    }
+    arianeeWallet:ArianeeWallet
 }) => {
   const app = express();
-    process.env.apiKey = configuration.apiKey;
+
+    let wallet = configuration.arianeeWallet
+
+    console.log("Wallet initialized on: ", wallet.configuration.networkName);
+    console.log('public key:', wallet.address);
 
 
-    const arianee = await new Arianee().init(configuration.chain, configuration.arianeeCustomConfiguration);
-    let wallet = configuration.privateKey ?
-        arianee.fromPrivateKey(configuration.privateKey)
-        : arianee.fromRandomKey();
-
-    console.log("Wallet initialized on: ", configuration.chain);
-    console.log('public key:', wallet.publicKey);
-
-    
     if (configuration.customSendTransaction) {
         wallet.setCustomSendTransaction(configuration.customSendTransaction);
     }
@@ -56,15 +35,6 @@ export const arianeeServerFactory = async (configuration: {
         app.use(configuration.middlewareBefore);
     }
 
-    app.use((req,res,next)=>{
-      if(configuration.privateKey){
-        next();
-      }
-      else{
-        wallet = arianee.fromRandomKey();
-        next();
-      }
-    });
 
     app.get('/hello', (req, res) => {
         return res.send('world');
@@ -73,8 +43,8 @@ export const arianeeServerFactory = async (configuration: {
     app.post('/chain', (req, res) => {
         return res.json({
             chainId:wallet.configuration.chainId,
-            chain:configuration.chain,
-            network:configuration.chain
+            chain:wallet.configuration.networkName,
+            network:wallet.configuration.networkName
         });
     });
     [
