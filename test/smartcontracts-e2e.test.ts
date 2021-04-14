@@ -10,16 +10,14 @@ describe('Smartcontracts', () => {
     describe('arianeeJs-server is set with specific privateKey', () => {
         let app;
 
-        let wallet: ArianeeWallet;
+        let arianeeWallet: ArianeeWallet;
 
         beforeAll(async () => {
             const arianee = await new Arianee().init(NETWORK.testnet);
-            wallet = arianee.fromRandomKey();
-            const privateKey = wallet.privateKey;
+            arianeeWallet = arianee.fromRandomKey();
 
             app = await arianeeServerFactory({
-                chain: NETWORK.testnet,
-                privateKey: privateKey
+                arianeeWallet
             });
 
             request(app).post('/v2/poa/faucet')
@@ -106,14 +104,14 @@ describe('Smartcontracts', () => {
 
             test('it should be able to do a call with multiple argument', async (done) => {
                 const responseBuyCredit = await request(app).post('/contracts/storeContract/buyCredit/send')
-                    .send([0, 3, wallet.address]);
+                    .send([0, 3, arianeeWallet.address]);
 
 
                 expect(responseBuyCredit.status).toBe(200);
 
 
                 const responseBalance = await request(app).post('/contracts/creditHistoryContract/balanceOf/call')
-                    .send([wallet.address, 0]);
+                    .send([arianeeWallet.address, 0]);
 
                 expect(responseBalance.body).toBe("3");
 

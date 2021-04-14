@@ -10,16 +10,14 @@ describe('Smartcontracts', () => {
     describe('arianeeJs-server is set with specific privateKey', () => {
         let app;
 
-        let wallet: ArianeeWallet;
+        let arianeeWallet: ArianeeWallet;
 
         beforeAll(async () => {
             const arianee = await new Arianee().init(NETWORK.testnet);
-            wallet = arianee.fromRandomKey();
-            const privateKey = wallet.privateKey;
+            arianeeWallet = arianee.fromRandomKey();
 
             app = await arianeeServerFactory({
-                chain: NETWORK.testnet,
-                privateKey: privateKey
+                arianeeWallet
             });
 
             request(app).post('/v2/poa/faucet')

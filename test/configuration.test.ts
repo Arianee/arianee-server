@@ -11,11 +11,11 @@ describe('Configuration and different behaviors', () => {
 
         beforeAll(async () => {
             const arianee = await new Arianee().init(NETWORK.testnet);
-            const privateKey = arianee.fromRandomKey().privateKey;
+            const arianeeWallet = arianee.fromRandomKey();
 
 
             randomApp = await arianeeServerFactory({
-                chain: NETWORK.testnet
+                arianeeWallet
             });
         });
 
@@ -45,25 +45,6 @@ describe('Configuration and different behaviors', () => {
             done()
         });
 
-        test('it should change privateKey for eachRequest', async (done) => {
-            try {
-                const firstRequest = request(randomApp)
-                    .post('/publicKey')
-                    .send();
-
-                const secondRequest = request(randomApp)
-                    .post('/publicKey')
-                    .send();
-
-                const [pubKey1, pubKey2] = await Promise.all([firstRequest, secondRequest]);
-
-                expect(pubKey1.body !== pubKey2.body).toBeTruthy();
-
-            } catch (e) {
-                expect(false).toBeTruthy()
-            }
-            done()
-        });
     });
 
 });

@@ -10,11 +10,11 @@ describe('ArianeeJSServer', () => {
 
         beforeAll(async () => {
             const arianee = await new Arianee().init(NETWORK.testnet);
-            const privateKey = arianee.fromRandomKey().privateKey;
+            const arianeeWallet = arianee.fromRandomKey();
 
 
             randomApp = await arianeeServerFactory({
-                chain: NETWORK.testnet
+                arianeeWallet
             });
 
         });
